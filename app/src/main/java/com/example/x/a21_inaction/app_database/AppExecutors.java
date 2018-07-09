@@ -33,6 +33,18 @@ public class AppExecutors {
 
     }
 
+    public Executor getDiskIO() {
+        return diskIO;
+    }
+
+    public Executor getNetworkIO() {
+        return networkIO;
+    }
+
+    public Executor getMainThreadIO() {
+        return mainThreadIO;
+    }
+
     private static class MainThreadExecutors implements Executor {
         Handler mainThreadHandler = new Handler(Looper.getMainLooper());
 
