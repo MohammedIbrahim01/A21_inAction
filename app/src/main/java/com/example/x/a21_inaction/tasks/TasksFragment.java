@@ -2,6 +2,8 @@ package com.example.x.a21_inaction.tasks;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -53,14 +55,14 @@ public class TasksFragment extends Fragment implements TaskAdapter.OnListItemCli
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasksRecyclerView.setAdapter(adapter);
 
-        retrieveTasks();
+        setupViewModel();
 
         return view;
     }
 
-    private void retrieveTasks() {
-        LiveData<List<Task>> tasks = AppDatabase.getInstance(getActivity().getApplicationContext()).taskDao().getAllTasks();
-        tasks.observe(this, new Observer<List<Task>>() {
+    private void setupViewModel() {
+        TasksViewModel tasksViewModel = ViewModelProviders.of(this).get(TasksViewModel.class);
+        tasksViewModel.getTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable List<Task> tasks) {
                 adapter.setTasks(tasks);
