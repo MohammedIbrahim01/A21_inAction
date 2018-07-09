@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,18 +22,27 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TasksFragment extends Fragment {
+public class TasksFragment extends Fragment implements TaskAdapter.OnListItemClickListener {
 
+    public static final String KEY_TASK_ID = "key-task-id";
     @BindView(R.id.tasks_recyclerView)
     RecyclerView tasksRecyclerView;
 
     @OnClick(R.id.go_add_task_fab)
-    void goAddTask(){
+    void goAddTask() {
         Intent intent = new Intent(getActivity(), AddEditTaskActivity.class);
         startActivity(intent);
+
     }
 
-    TaskAdapter adapter = new TaskAdapter();
+    private void goEditTask(int taskId) {
+        Intent intent = new Intent(getActivity(), AddEditTaskActivity.class);
+        intent.putExtra(KEY_TASK_ID, taskId);
+        startActivity(intent);
+
+    }
+
+    TaskAdapter adapter = new TaskAdapter(this);
 
     @Nullable
     @Override
@@ -59,5 +67,10 @@ public class TasksFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onListItemClick(int taskId) {
+        goEditTask(taskId);
     }
 }
