@@ -2,6 +2,7 @@ package com.example.x.a21_inaction.tasks;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -75,12 +76,13 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
             final int taskId = intent.getIntExtra(KEY_TASK_ID, DEFAULT_VALUE);
 
-            final LiveData<Task> taskLD = AppDatabase.getInstance(getApplicationContext()).taskDao().getTask(taskId);
-            taskLD.observe(this, new Observer<Task>() {
+            EditTaskViewModelFactory viewModelFactory = new EditTaskViewModelFactory(AppDatabase.getInstance(getApplicationContext()), taskId);
+            final EditTaskViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(EditTaskViewModel.class);
+            viewModel.getTask().observe(this, new Observer<Task>() {
                 @Override
                 public void onChanged(@Nullable Task task) {
                     populateUI(task.getTitle());
-                    taskLD.removeObserver(this);
+                    viewModel.getTask().removeObserver(this);
 
                 }
             });
