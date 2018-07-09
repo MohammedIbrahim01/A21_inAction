@@ -1,5 +1,6 @@
 package com.example.x.a21_inaction.tasks;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -13,10 +14,10 @@ import java.util.List;
 public interface TaskDao {
 
     @Query("SELECT * FROM tasks")
-    List<Task> getAllTasks();
+    LiveData<List<Task>> getAllTasks();
 
     @Query("SELECT * FROM tasks WHERE id = :id")
-    Task getTask(int id);
+    LiveData<Task> getTask(int id);
 
     @Insert
     void insertTask(Task task);
