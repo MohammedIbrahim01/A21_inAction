@@ -19,11 +19,11 @@ public interface TaskDao {
     Task getTask(int id);
 
     @Insert
-    void insertTask();
+    void insertTask(Task task);
 
     @Delete
-    void deleteTask();
+    void deleteTask(Task task);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateTask();
+    void updateTask(Task task);
 }
