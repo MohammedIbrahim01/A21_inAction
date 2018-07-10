@@ -34,6 +34,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
 
     //to handle click on List Item
     public interface OnListItemClickListener {
