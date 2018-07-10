@@ -5,8 +5,8 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.x.a21_inaction.tasks.Task;
-import com.example.x.a21_inaction.tasks.TaskDao;
+import com.example.x.a21_inaction.tasks.data.Task;
+import com.example.x.a21_inaction.tasks.data.TaskDao;
 
 @Database(entities = {Task.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

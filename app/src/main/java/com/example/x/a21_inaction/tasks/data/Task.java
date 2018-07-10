@@ -1,4 +1,4 @@
-package com.example.x.a21_inaction.tasks;
+package com.example.x.a21_inaction.tasks.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;

@@ -1,4 +1,4 @@
-package com.example.x.a21_inaction.tasks;
+package com.example.x.a21_inaction.tasks.data;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

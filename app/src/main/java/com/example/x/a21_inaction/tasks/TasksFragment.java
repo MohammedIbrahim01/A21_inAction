@@ -1,8 +1,6 @@
 package com.example.x.a21_inaction.tasks;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +11,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.x.a21_inaction.R;
-import com.example.x.a21_inaction.app_database.AppDatabase;
+import com.example.x.a21_inaction.tasks.data.Task;
+import com.example.x.a21_inaction.tasks.data.TaskAdapter;
+import com.example.x.a21_inaction.tasks.view_model.TasksViewModel;
 
 import java.util.List;
 

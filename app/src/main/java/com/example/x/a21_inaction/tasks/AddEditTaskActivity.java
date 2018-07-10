@@ -1,6 +1,5 @@
 package com.example.x.a21_inaction.tasks;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -14,8 +13,9 @@ import android.widget.EditText;
 import com.example.x.a21_inaction.R;
 import com.example.x.a21_inaction.app_database.AppDatabase;
 import com.example.x.a21_inaction.app_database.AppExecutors;
-
-import java.util.List;
+import com.example.x.a21_inaction.tasks.data.Task;
+import com.example.x.a21_inaction.tasks.view_model.EditTaskViewModel;
+import com.example.x.a21_inaction.tasks.view_model.EditTaskViewModelFactory;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

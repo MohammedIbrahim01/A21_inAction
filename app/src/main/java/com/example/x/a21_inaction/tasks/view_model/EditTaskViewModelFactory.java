@@ -1,10 +1,11 @@
-package com.example.x.a21_inaction.tasks;
+package com.example.x.a21_inaction.tasks.view_model;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import com.example.x.a21_inaction.app_database.AppDatabase;
+import com.example.x.a21_inaction.tasks.view_model.EditTaskViewModel;
 
 public class EditTaskViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
