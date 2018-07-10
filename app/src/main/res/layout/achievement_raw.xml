@@ -6,12 +6,12 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/task_title_textView"
+        android:id="@+id/achievement_title_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#127d89"
         android:gravity="center"
         android:textColor="#fff"
-        tools:text="task #1" />
+        tools:text="achievement #1" />
 
 </LinearLayout>

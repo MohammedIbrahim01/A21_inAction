@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.x.a21_inaction.R;
+import com.example.x.a21_inaction.achievements.data.Achievement;
 import com.example.x.a21_inaction.app_database.AppDatabase;
 import com.example.x.a21_inaction.app_database.AppExecutors;
 import com.example.x.a21_inaction.tasks.data.Task;
@@ -74,11 +75,12 @@ public class TasksFragment extends Fragment implements TaskAdapter.OnListItemCli
                 List<Task> tasks = adapter.getTasks();
                 final Task task = tasks.get(viewHolder.getAdapterPosition());
 
-                //delete from tasks
+                //delete from tasks and added to achievements
                 AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
                     @Override
                     public void run() {
                         database.taskDao().deleteTask(task);
+                        database.achievementDao().insertAchievement(new Achievement(task.getTitle()));
                     }
                 });
             }
@@ -107,7 +109,6 @@ public class TasksFragment extends Fragment implements TaskAdapter.OnListItemCli
 
         return view;
     }
-
 
 
     @Override

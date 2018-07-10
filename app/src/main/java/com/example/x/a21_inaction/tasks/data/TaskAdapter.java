@@ -77,7 +77,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.title_textView)
+        @BindView(R.id.task_title_textView)
         TextView titleTextView;
 
 
