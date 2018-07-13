@@ -1,4 +1,4 @@
-package com.example.x.a21_inaction.achievements;
+package com.example.x.a21_inaction.achievements.view_model;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

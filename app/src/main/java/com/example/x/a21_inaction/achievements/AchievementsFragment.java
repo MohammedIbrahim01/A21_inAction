@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.x.a21_inaction.R;
 import com.example.x.a21_inaction.achievements.data.Achievement;
 import com.example.x.a21_inaction.achievements.data.AchievementAdapter;
+import com.example.x.a21_inaction.achievements.view_model.AchievementViewModel;
 
 import java.util.List;
 
