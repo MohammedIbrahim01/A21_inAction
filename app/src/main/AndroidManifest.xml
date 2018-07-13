@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".tasks.AddEditTaskActivity"></activity>
+        <activity android:name=".tasks.AddEditTaskActivity" />
+        <activity android:name=".day_zero.AddBenefitActivity"></activity>
     </application>
 
 </manifest>
