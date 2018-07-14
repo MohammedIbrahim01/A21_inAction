@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".tasks.AddEditTaskActivity" />
         <activity android:name=".day_zero.AddBenefitActivity"></activity>
+        <receiver android:name=".counter.Receiver"/>
     </application>
 
 </manifest>
