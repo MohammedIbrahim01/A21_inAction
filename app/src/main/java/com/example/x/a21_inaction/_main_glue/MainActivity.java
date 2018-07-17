@@ -21,10 +21,13 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+
     public static final String APP_SHARED_PREFERENCES = "app-shared-preferences";
     public static final String KEY_COUNT = "key=count";
 
+
     private SharedPreferences sharedPreferences;
+
 
     @BindView(R.id.counter_textView)
     TextView counterTextView;
@@ -33,12 +36,22 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @BindView(R.id.main_viewPager)
     ViewPager mainViewPager;
 
+
+    private void setCounter() {
+
+        //get count from shared preferences and set counterTextView text to it
+        counterTextView.setText(String.valueOf(sharedPreferences.getInt(KEY_COUNT, 0)));
+
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        //get shared preferences with name app-shared-preferences
         sharedPreferences = getSharedPreferences(APP_SHARED_PREFERENCES, MODE_PRIVATE);
 
         //set count in counterTextView
@@ -52,7 +65,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         mainViewPager.setAdapter(adapter);
         mainTabLayout.setupWithViewPager(mainViewPager);
+
     }
+
 
     @Override
     protected void onResume() {
@@ -60,16 +75,20 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    private void setCounter() {
-        counterTextView.setText(String.valueOf(sharedPreferences.getInt(KEY_COUNT, 0)));
-    }
 
+    /**
+     * menu stuff
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -81,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+
         if (item.getItemId() == R.id.action_start) {
 
             Counter counter = new Counter(this);
@@ -88,11 +108,29 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         }
 
+
         return super.onOptionsItemSelected(item);
+
+
     }
 
+
+    /**
+     * when shared preferences changed reset the counter
+     *
+     * @param sharedPreferences
+     * @param s
+     */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        setCounter();
+
+
+        if (s == KEY_COUNT) {
+
+            setCounter();
+
+        }
+
+
     }
 }

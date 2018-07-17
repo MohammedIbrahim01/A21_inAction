@@ -32,38 +32,67 @@ import butterknife.OnClick;
 
 public class TasksFragment extends Fragment implements TaskAdapter.OnListItemClickListener {
 
+
     public static final String KEY_TASK_ID = "key-task-id";
-    TaskAdapter adapter = new TaskAdapter(this);
-    AppDatabase database;
+
+
+    private TaskAdapter adapter = new TaskAdapter(this);
+    private AppDatabase database;
+    private List<Task> tasksList;
+
+
     @BindView(R.id.tasks_recyclerView)
     RecyclerView tasksRecyclerView;
 
+
+    //when click add task button
     @OnClick(R.id.go_add_task_fab)
     void goAddTask() {
-        Intent intent = new Intent(getActivity(), AddEditTaskActivity.class);
-        startActivity(intent);
+
+        //go to AddEditTaskActivity
+        startActivity(new Intent(getActivity(), AddEditTaskActivity.class));
 
     }
 
+
+    //when click on the task to edit it
     private void goEditTask(int taskId) {
+
+        //go to AddEditTaskActivity with extra task id
         Intent intent = new Intent(getActivity(), AddEditTaskActivity.class);
         intent.putExtra(KEY_TASK_ID, taskId);
         startActivity(intent);
 
     }
 
+
+    /**
+     * setup viewModel to cache the data so we don't have to re-query database  when configuration changed
+     */
     private void setupViewModel() {
+
         TasksViewModel tasksViewModel = ViewModelProviders.of(getActivity()).get(TasksViewModel.class);
         tasksViewModel.getTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable List<Task> tasks) {
+
+                tasksList = tasks;
                 adapter.setTasks(tasks);
                 adapter.notifyDataSetChanged();
+
             }
         });
+
     }
 
+
+    /**
+     * setupSwipeFunctionality to the recycler view
+     */
     private void setupSwipeFunctionality() {
+
+
+        // no drag and swipe to the right only
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -72,20 +101,31 @@ public class TasksFragment extends Fragment implements TaskAdapter.OnListItemCli
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                List<Task> tasks = adapter.getTasks();
-                final Task task = tasks.get(viewHolder.getAdapterPosition());
+
+
+                //get the task that was swiped by adapter position
+                final Task task = tasksList.get(viewHolder.getAdapterPosition());
 
                 //delete from tasks and added to achievements
                 AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
                     @Override
                     public void run() {
+
                         database.taskDao().deleteTask(task);
                         database.achievementDao().insertAchievement(new Achievement(task.getTitle()));
+
                     }
                 });
+
+
             }
+
+
         }).attachToRecyclerView(tasksRecyclerView);
+
+
     }
+
 
     @Nullable
     @Override
@@ -93,21 +133,32 @@ public class TasksFragment extends Fragment implements TaskAdapter.OnListItemCli
         View view = inflater.inflate(R.layout.fragment_tasks, container, false);
         ButterKnife.bind(this, view);
 
+
         //get AppDatabase
         database = AppDatabase.getInstance(getActivity().getApplicationContext());
 
+
         //setup divider and recyclerView
+        setUpRecyclerView();
+
+
+        setupViewModel();
+
+
+        return view;
+    }
+
+    private void setUpRecyclerView() {
+
         DividerItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         decoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.tasks_divider));
+
 
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tasksRecyclerView.addItemDecoration(decoration);
         tasksRecyclerView.setAdapter(adapter);
         setupSwipeFunctionality();
 
-        setupViewModel();
-
-        return view;
     }
 
 
@@ -115,4 +166,6 @@ public class TasksFragment extends Fragment implements TaskAdapter.OnListItemCli
     public void onListItemClick(int taskId) {
         goEditTask(taskId);
     }
+
+
 }

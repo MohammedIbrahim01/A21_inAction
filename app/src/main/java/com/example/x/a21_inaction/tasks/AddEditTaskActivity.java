@@ -22,8 +22,10 @@ import butterknife.ButterKnife;
 
 public class AddEditTaskActivity extends AppCompatActivity {
 
+
     public static final String KEY_TASK_ID = "key-task-id";
     public static final int DEFAULT_VALUE = 0;
+
 
     @BindView(R.id.add_edit_task_editText)
     EditText addEditTaskEditText;
@@ -49,6 +51,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
+
                 //call updateTask and pass new Task with same taskId that was clicked
                 AppDatabase.getInstance(getApplicationContext()).taskDao().updateTask(new Task(taskId, title));
                 finish();
@@ -69,10 +72,12 @@ public class AddEditTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_task);
         ButterKnife.bind(this);
 
+
         Intent intent = getIntent();
 
         //if opened for edit >> populateUI and get taskId then set onClickListener that fires saveEditedTask
         if (intent.hasExtra(KEY_TASK_ID)) {
+
 
             final int taskId = intent.getIntExtra(KEY_TASK_ID, DEFAULT_VALUE);
 
@@ -81,6 +86,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
             viewModel.getTask().observe(this, new Observer<Task>() {
                 @Override
                 public void onChanged(@Nullable Task task) {
+
                     populateUI(task.getTitle());
                     viewModel.getTask().removeObserver(this);
 
@@ -98,8 +104,10 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
         }
 
+
         //if opened for add new Task >> set onClickListener that fires saveNewTask
         else {
+
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -109,5 +117,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
         }
 
+
     }
+
+
 }

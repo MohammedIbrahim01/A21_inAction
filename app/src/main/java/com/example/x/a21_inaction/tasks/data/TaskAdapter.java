@@ -34,12 +34,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     }
 
-    public List<Task> getTasks() {
-        return tasks;
-    }
 
     //to handle click on List Item
     public interface OnListItemClickListener {
+
         void onListItemClick(int taskId);
 
     }
@@ -57,6 +55,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TaskAdapter.ViewHolder holder, int position) {
+
         Task currentTask = tasks.get(position);
         holder.titleTextView.setText(currentTask.getTitle());
 
@@ -90,8 +89,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
+
             Task currentTask = tasks.get(getAdapterPosition());
             onListItemClickListener.onListItemClick(currentTask.getId());
+
         }
     }
 
